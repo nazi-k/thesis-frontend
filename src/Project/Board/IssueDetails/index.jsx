@@ -59,13 +59,6 @@ const ProjectBoardIssueDetails = ({
       <TopActions>
         <Type issue={issue} updateIssue={updateIssue} />
         <TopActionsRight>
-          <AboutTooltip
-            renderLink={linkProps => (
-              <Button icon="feedback" variant="empty" {...linkProps}>
-                Give feedback
-              </Button>
-            )}
-          />
           <CopyLinkButton variant="empty" />
           <Delete issue={issue} fetchProject={fetchProject} modalClose={modalClose} />
           <Button icon="close" iconSize={24} variant="empty" onClick={modalClose} />

@@ -27,16 +27,6 @@ const ProjectNavbarLeft = ({ issueSearchModalOpen, issueCreateModalOpen }) => (
     </Item>
 
     <Bottom>
-      <AboutTooltip
-        placement="right"
-        offset={{ top: -218 }}
-        renderLink={linkProps => (
-          <Item {...linkProps}>
-            <Icon type="help" size={25} />
-            <ItemText>About</ItemText>
-          </Item>
-        )}
-      />
       <Item>
         <a href="/logout">
           <Icon type="logout" size={27} />

@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Header, BoardName, StyledAvatar } from './Styles';
+import useCurrentUser from 'shared/hooks/currentUser';
+import ProfileModal from 'shared/components/ProfileModal';
 
-import { Button } from 'shared/components';
+const ProjectBoardHeader = () => {
+  const { currentUser } = useCurrentUser();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-import { Header, BoardName } from './Styles';
+  if (!currentUser) {
+    return (
+      <Header>
+        <BoardName>Kanban board</BoardName>
+      </Header>
+    );
+  }
 
-const ProjectBoardHeader = () => (
-  <Header>
-    <BoardName>Kanban board</BoardName>
-    <a href="https://github.com/oldboyxx/jira_clone" target="_blank" rel="noreferrer noopener">
-      <Button icon="github">Github Repo</Button>
-    </a>
-  </Header>
-);
+  return (
+    <>
+      <Header>
+        <BoardName>Kanban board</BoardName>
+        <StyledAvatar
+          avatarUrl={currentUser.avatarUrl}
+          name={currentUser.name}
+          size={40}
+          onClick={() => setIsProfileOpen(true)}
+        />
+      </Header>
+
+      {isProfileOpen && <ProfileModal currentUser={currentUser} onClose={() => setIsProfileOpen(false)} />}
+    </>
+  );
+};
 
 export default ProjectBoardHeader;

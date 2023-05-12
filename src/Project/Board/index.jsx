@@ -34,7 +34,9 @@ const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
   return (
     <Fragment>
       <Breadcrumbs items={[<Link to="/project">Projects</Link>, project.name, 'Kanban Board']} />
-      <Header />
+      <Header
+        fetchProject={fetchProject}
+      />
       <Filters
         projectUsers={project.users}
         defaultFilters={defaultFilters}

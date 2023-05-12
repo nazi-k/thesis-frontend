@@ -3,7 +3,6 @@ import { color, mixin } from 'shared/utils/styles';
 import { Button, Form } from 'shared/components';
 
 export const ListCont = styled.div`
-  background-color: ${color.backgroundLight};
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
@@ -24,7 +23,7 @@ export const ListItem = styled.li`
 padding: 10px;
 margin-bottom: 5px;
 border-radius: 3px;
-background: #fff;
+background-color: ${color.backgroundLight};
 box-shadow: 0px 1px 2px 0px rgba(9, 30, 66, 0.25);
 transition: background 0.1s;
 ${mixin.clickable}
@@ -73,6 +72,13 @@ export const AddProjectButton = styled.button`
   &:hover {
     background-color: #005ea2;
   }
+`;
+
+export const RightProjectButton = styled(Button)`
+  padding: 10px 20px;
+  font-size: 16px;
+  float: right;
+  margin-top: 20px;
 `;
 
 export const FormCont = styled.div`

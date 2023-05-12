@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { Header, BoardName, StyledAvatar } from './Styles';
-import useCurrentUser from 'shared/hooks/currentUser';
+import useApi from 'shared/hooks/api';
 import ProfileModal from 'shared/components/ProfileModal';
+import { get } from 'lodash';
 
-const ProjectBoardHeader = () => {
-  const { currentUser } = useCurrentUser();
+const ProjectBoardHeader = ({fetchProject}) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const useCurrentUser = () => {
+    const [{ data }, setCurrentUser] = useApi.get('/user/me');
+    return [{
+      currentUser: get(data, 'currentUser'),
+      
+    }, setCurrentUser];
+  };
+
+  const [{ currentUser }, setCurrentUser] = useCurrentUser();
 
   if (!currentUser) {
     return (
@@ -27,7 +36,14 @@ const ProjectBoardHeader = () => {
         />
       </Header>
 
-      {isProfileOpen && <ProfileModal currentUser={currentUser} onClose={() => setIsProfileOpen(false)} />}
+      {isProfileOpen && 
+        <ProfileModal 
+          currentUser={currentUser} 
+          onClose={() => setIsProfileOpen(false)} 
+          fetchProject={fetchProject}
+          setCurrentUser={setCurrentUser}
+        />
+      }
     </>
   );
 };

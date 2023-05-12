@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-
+import api from 'shared/utils/api';
 import { font, mixin } from 'shared/utils/styles';
 
+import useApi from 'shared/hooks/api';
 import { Link } from 'react-router-dom';
 
 const ModalContainer = styled.div`
@@ -104,30 +105,46 @@ const LogoutText = styled.div`
   }
 `;
 
-const ProfileModal = ({ currentUser, onClose }) => {
+const ProfileModal = ({ currentUser, onClose, fetchProject, setCurrentUser }) => {
   const [avatarUrl, setAvatarUrl] = useState(currentUser.avatarUrl);
   const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
   const [isHovered, setIsHovered] = useState(false);
+  const [{ isUpdating }, updateName] = useApi.put('/user/name');
 
   const modalRef = useRef(null); // створюємо ref для контейнера модального вікна
 
-  const handleAvatarChange = (event) => {
+  const handleAvatarChange = async (event) => {
     const file = event.target.files[0];
-    console.log(file);
-    // TODO: send file to server and update avatarUrl
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Selected file is too large!');
+      event.target.value = null;
+    }
+    try {
+      const result = await api.uploadFile('/user/change-photo/', file);
+      console.log(result);
+      setAvatarUrl(result.url);
+      fetchProject();
+      setCurrentUser({ ...currentUser, avatarUrl: result.url });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
 
-  const handleNameSave = (event) => {
-    console.log(event.target.value);
-    console.log(name);
+  const handleNameSave = async (event) => {
+    try {
+      const result = await updateName({ name: name });
+      fetchProject();
+      setCurrentUser({ ...currentUser, name: result.name });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = async (event) => {
     // перевіряємо, чи клік був поза контейнером модального вікна
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       onClose();
@@ -153,13 +170,13 @@ const ProfileModal = ({ currentUser, onClose }) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         />
-        <AvatarInput type="file" onChange={handleAvatarChange} />
+        <AvatarInput type="file" accept="image/*" onChange={handleAvatarChange} />
         </label>
         <UserInfo>
         <Name>
           <input type="text" value={name} onChange={handleNameChange} onBlur={handleNameSave}/>
         </Name>
-        <Email>{email}</Email>
+        <Email>{currentUser.email}</Email>
       </UserInfo>
       </AvatarContainer>
       <Link to="/logout"><LogoutText>Logout</LogoutText></Link>

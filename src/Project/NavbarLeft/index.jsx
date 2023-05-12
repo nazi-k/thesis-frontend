@@ -25,15 +25,6 @@ const ProjectNavbarLeft = ({ issueSearchModalOpen, issueCreateModalOpen }) => (
       <Icon type="plus" size={27} />
       <ItemText>Create Issue</ItemText>
     </Item>
-
-    <Bottom>
-      <Item>
-        <a href="/logout">
-          <Icon type="logout" size={27} />
-          <ItemText>Logout</ItemText>
-        </a>
-      </Item>
-    </Bottom>
   </NavLeft>
 );
 

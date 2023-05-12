@@ -57,6 +57,23 @@ const optimisticUpdate = async (url, { updatedFields, currentFields, setLocalDat
   }
 };
 
+const uploadFile = async (url, file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: getStoredAuthToken() ? `Bearer ${getStoredAuthToken()}` : undefined,
+    }
+  };
+  try {
+    const response = await axios.post(`${defaults.baseURL}${url}`, formData, config);
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error;
+  }
+};
+
 export default {
   get: (...args) => api('get', ...args),
   post: (...args) => api('post', ...args),
@@ -64,4 +81,5 @@ export default {
   patch: (...args) => api('patch', ...args),
   delete: (...args) => api('delete', ...args),
   optimisticUpdate,
+  uploadFile,
 };

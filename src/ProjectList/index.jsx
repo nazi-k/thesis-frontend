@@ -14,6 +14,7 @@ import {
   ItemCategory,
   ItemDescription,
   AddProjectButton,
+  RightProjectButton,
   FormCont,
   FormHeading,
   FormElement,
@@ -66,6 +67,7 @@ const ProjectsList = () => {
           ))}
         </List>
         <AddProjectButton onClick={() => setIsCreating(true)}>Add Project</AddProjectButton>
+        <Link to="/logout"><RightProjectButton>Logout</RightProjectButton></Link>
       </ListCont>
 
       {isCreating && (

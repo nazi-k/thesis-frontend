@@ -6,6 +6,18 @@ export const ListCont = styled.div`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  
+  width: calc(100vw - 200px);
+  margin: 100px;
+  height: calc(100vh - 50px);
+  box-sizing: border-box;
+  overflow: auto;
+
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    height: auto;
+    width: auto;
+  }
 `;
 
 export const ListHeading = styled.h2`

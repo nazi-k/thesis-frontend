@@ -1,109 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
 import api from 'shared/utils/api';
-import { font, mixin } from 'shared/utils/styles';
-
+import { Spinner } from 'shared/components';
 import useApi from 'shared/hooks/api';
 import { Link } from 'react-router-dom';
-
-const ModalContainer = styled.div`
-  position: absolute;
-  top: 100px;
-  right: 10px;
-  width: 350px;
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 5px;
-  z-index: 9999; /* встановлюємо високий рівень z-index */
-  background-color: #f5f5f5;
-`;
-
-const AvatarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin: 16px;
-`;
-
-const AvatarInput = styled.input`
-  display: none;
-`;
-
-const Avatar = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin-right: 20px;
-  transition: opacity 0.2s ease-in-out;
-  opacity: ${({ isHovered }) => (isHovered ? 0.7 : 1)};
-  ${mixin.clickable}
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Name = styled.h3`
-margin: 0;
-
-  input[type="text"] {
-    border: none;
-    outline: none;
-    cursor: text;
-    background-color: #f5f5f5;
-    padding: 5px;
-  }
-  
-  input[type="text"]:hover {
-    background-color: #e0e0e0;
-  }
-  
-  input[type="text"]:focus {
-    background-color: #fff;
-  }
-  
-  input[type="text"]:focus::placeholder {
-    color: transparent;
-  }
-  
-  input[type="text"]:focus::-webkit-input-placeholder {
-    color: transparent;
-  }
-  
-  input[type="text"]:focus::-moz-placeholder {
-    color: transparent;
-  }
-  
-  input[type="text"]:focus:-ms-input-placeholder {
-    color: transparent;
-  }
-`;
-
-const Email = styled.p`
-  margin: 0;
-  color: #aaa;
-  padding-left: 5px;
-`;
-
-
-const LogoutText = styled.div`
-  position: relative;
-  text-transform: uppercase;
-  text-align: center;
-  ${font.size(12)}
-  ${mixin.clickable}
-  width: 100%;
-  height: 42px;
-  line-height: 42px;
-  &:hover {
-    background: rgba(255, 255, 255, 0.8);
-  }
-`;
+import { 
+  ModalContainer,
+  AvatarContainer,
+  AvatarInput,
+  StyledAvatar,
+  CameraIcon,
+  AvatarLabel,
+  UserInfo,
+  Name,
+  Email,
+  LogoutText,
+ } from './Styles';
 
 const ProfileModal = ({ currentUser, onClose, fetchProject, setCurrentUser }) => {
   const [avatarUrl, setAvatarUrl] = useState(currentUser.avatarUrl);
@@ -162,16 +73,26 @@ const ProfileModal = ({ currentUser, onClose, fetchProject, setCurrentUser }) =>
   return (
     <ModalContainer ref={modalRef}>
       <AvatarContainer>
-        <label>
-        <Avatar
-          src={avatarUrl}
+      <AvatarLabel>
+      <CameraIcon
+          src={avatarUrl ? "https://cdn1.iconfinder.com/data/icons/edit-6/64/edit-photo-camera-rename-512.png" : "https://cdn2.iconfinder.com/data/icons/camera-56/48/3_add_plus_camera_photo_mobile_phone_video-512.png"}
+          alt="Camera"
+          isHovered={isHovered}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        />
+        <StyledAvatar
+          avatarUrl={avatarUrl}
           alt="Avatar"
+          name={name}
+          size={70}
           isHovered={isHovered}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         />
         <AvatarInput type="file" accept="image/*" onChange={handleAvatarChange} />
-        </label>
+      </AvatarLabel>
+      {isUpdating && <Spinner size={24} />}
         <UserInfo>
         <Name>
           <input type="text" value={name} onChange={handleNameChange} onBlur={handleNameSave}/>

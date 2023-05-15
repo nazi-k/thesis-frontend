@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { color, font, mixin } from 'shared/utils/styles';
 import { Icon } from 'shared/components';
 
-import imageBackground from './assets/background-forest.jpg';
+import page404 from './assets/404.png';
 
 export const ErrorPage = styled.div`
   padding: 64px;
@@ -11,9 +11,9 @@ export const ErrorPage = styled.div`
 
 export const ErrorPageInner = styled.div`
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 1200px;
   padding: 200px 0;
-  ${mixin.backgroundImage(imageBackground)}
+  ${mixin.backgroundImage(page404)}
   @media (max-height: 680px) {
     padding: 140px 0;
   }

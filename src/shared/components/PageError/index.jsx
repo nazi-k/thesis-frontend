@@ -7,11 +7,11 @@ const PageError = () => (
     <ErrorPageInner>
       <ErrorBox>
         <StyledIcon type="bug" />
-        <Title>There’s been a glitch…</Title>
+        <Title>This page does not exist</Title>
         <p>
-          {'We’re not quite sure what went wrong. Please contact us or try looking on our '}
-          <a href="https://support.atlassian.com/jira-software-cloud/">Help Center</a>
-          {' if you need a hand.'}
+          {'Oops! The page you are looking for does not exist. Click '}
+          <a href="/">here</a>
+          {'  to go back to the homepage.'}
         </p>
       </ErrorBox>
     </ErrorPageInner>

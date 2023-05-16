@@ -1,11 +1,11 @@
 {
-  "name": "jira_client",
+  "name": "taskforg_client",
   "version": "1.0.0",
-  "author": "Ivor Reic",
+  "author": "Nazarii Karabin",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "start:production": "pm2 start --name 'jira_client' server.js",
+    "start:production": "pm2 start --name 'taskforg_client' server.js",
     "test:jest": "jest",
     "build": "rm -rf build && webpack --config webpack.config.production.js --progress",
     "pre-commit": "lint-staged"

@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "start:production": "pm2 start --name 'taskforg_client' server.js",
+    "start:production": "npm run start:production",
     "test:jest": "jest",
-    "build": "rm -rf build && webpack --config webpack.config.production.js --progress",
+    "build": "npm run build",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {

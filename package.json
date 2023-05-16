@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "start:production": "npm run start:production",
+    "start:production": "node server.js",
     "test:jest": "jest",
-    "build": "react-scripts build",
+    "build": "webpack --config webpack.config.production.js --progress",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
@@ -15,6 +15,7 @@
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-decorators": "^7.7.4",
     "@babel/plugin-proposal-export-namespace-from": "^7.7.4",
+    "@babel/plugin-proposal-private-methods": "^7.18.6",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
@@ -72,6 +73,15 @@
       "eslint --fix",
       "prettier --write",
       "git add"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      ["@babel/plugin-proposal-private-methods", { "loose": true }]
     ]
   }
 }

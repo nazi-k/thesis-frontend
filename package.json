@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "start:production": "npm run start:production",
     "test:jest": "jest",
-    "build": "npm run build",
+    "build": "react-scripts build",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
@@ -60,6 +60,7 @@
     "react-content-loader": "^4.3.3",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
+    "react-scripts": "^5.0.1",
     "react-textarea-autosize": "^7.1.2",
     "react-transition-group": "^4.3.0",
     "regenerator-runtime": "^0.13.3",
